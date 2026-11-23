@@ -17,6 +17,10 @@ public class ProductListRequest {
     @Min(value = 1, message = "每页数量不能小于 1")
     @Max(value = 500, message = "每页数量不能超过 500")
     private Long size = 10L;
+
+    /** 稳定 RSPU ID 精确查询，供 Office 等内部服务回读指定商品。 */
+    private String rspuId;
+
     private String categoryCode;
     private String positioningLabel;
     private String sceneCode;

@@ -181,6 +181,9 @@ public class ProductQueryService {
     private QueryWrapper<RspuMaster> buildListWrapper(ProductListRequest request, String viewMode) {
         QueryWrapper<RspuMaster> wrapper = new QueryWrapper<>();
 
+        if (StringUtils.hasText(request.getRspuId())) {
+            wrapper.eq("rspu_id", request.getRspuId().trim());
+        }
         if (StringUtils.hasText(request.getCategoryCode())) {
             wrapper.eq("category_code", request.getCategoryCode());
         }

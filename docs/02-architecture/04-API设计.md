@@ -140,7 +140,8 @@ GET    /api/v1/tasks?ids=a,b,c
 
 GET    /api/v1/products
        # 产品列表（分页+多条件筛选，已实现）
-       # Query: page, size, categoryCode, positioningLabel（风格码）, sceneCode,
+       # Query: page, size, rspuId（稳定 RSPU ID 精确查询，供内部服务单查）,
+       #        categoryCode, positioningLabel（风格码）, sceneCode,
        #        materialTag（材质码）, status,
        #        keyword（搜 category_path 或 rspu_id）,
        #        viewMode: "own" | "full" (可选, 默认 own),

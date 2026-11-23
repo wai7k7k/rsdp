@@ -229,6 +229,26 @@ class ProductQueryServiceTest {
     }
 
     @Test
+    void listProducts_rspuId_shouldAppendExactCondition() {
+        ProductListRequest request = new ProductListRequest();
+        request.setPage(1L);
+        request.setSize(1L);
+        request.setRspuId("  RSPU-TARGET-01  ");
+
+        Page<RspuMaster> page = new Page<>(1, 1, 0);
+        page.setRecords(List.of());
+        when(rspuMapper.selectPage(any(Page.class), any())).thenReturn(page);
+
+        productQueryService.listProducts(request);
+
+        @SuppressWarnings("unchecked")
+        ArgumentCaptor<QueryWrapper<RspuMaster>> captor = ArgumentCaptor.forClass(QueryWrapper.class);
+        verify(rspuMapper).selectPage(any(Page.class), captor.capture());
+        assertThat(captor.getValue().getSqlSegment()).contains("rspu_id");
+        assertThat(captor.getValue().getParamNameValuePairs()).containsValue("RSPU-TARGET-01");
+    }
+
+    @Test
     void listProducts_shouldFilterByStyleCode() {
         ProductListRequest request = new ProductListRequest();
         request.setPage(1L);
